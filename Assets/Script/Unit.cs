@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,17 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         targetPosition = transform.position;
+    }
+
+    private void OnEnable()
+    {
+        UnitActionManager.Instance().OnSelectedUnitChanged += UpdateSelectedVisual;
+        UpdateSelectedVisual(this,EventArgs.Empty);
+    }
+
+    private void OnDisable()
+    {
+        UnitActionManager.Instance().OnSelectedUnitChanged -= UpdateSelectedVisual;
     }
     void Update()
     {
@@ -48,5 +60,16 @@ public class Unit : MonoBehaviour
     public void EnableSelectedVisual()
     {
         selectedVisual.SetActive(true);
+    }
+
+    private void UpdateSelectedVisual(object sender,EventArgs empty)
+    {
+        Debug.Log("changed");
+        if(UnitActionManager.Instance().GetUnit() == this)
+            EnableSelectedVisual();
+        else
+        {
+            DisAbleSelectedVisual();
+        }
     }
 }

@@ -16,7 +16,7 @@ public class MousePositionManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(GetMousePosition());
+
         transform.position = GetMousePosition();
     }
     static public Vector3 GetMousePosition()
