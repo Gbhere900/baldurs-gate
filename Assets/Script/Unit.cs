@@ -6,7 +6,7 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     [Header("walk")]
-    private Vector3 targetPosition;
+    [SerializeField] private Vector3 targetPosition;
     [SerializeField] private float stopDistance = 0.1f;
     [SerializeField] private float speed  = 1;
 
@@ -17,10 +17,14 @@ public class Unit : MonoBehaviour
     [Header("Ñ¡ÖÐÍ¼±ê")]
     [SerializeField] private GameObject selectedVisual;
 
+    private GridPosition lastGridpostion;
+    private GridPosition currentGridpostion;
+
 
     private void Awake()
     {
         targetPosition = transform.position;
+        LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
     }
 
     private void OnEnable()
@@ -46,11 +50,25 @@ public class Unit : MonoBehaviour
         {
             animator.SetBool("isWalking", false);
         }
+
+        currentGridpostion = LevelGrid.Instance().GetGridPosition(transform.position);
+        Debug.Log(currentGridpostion.ToString());
+        if(currentGridpostion != lastGridpostion)
+        {
+
+            LevelGrid.Instance().SwitchUnitFromGridPositionToGridPosition(this,lastGridpostion,currentGridpostion);
+            lastGridpostion = currentGridpostion;
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position, 2f);
     }
 
     public void Move(Vector3 targetPosition)
     {
         this.targetPosition = targetPosition;
+
     }
 
     public void DisAbleSelectedVisual()

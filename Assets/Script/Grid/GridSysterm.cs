@@ -7,30 +7,52 @@ public class GridSysterm
     int lenth = 1;
     int width = 1;
     float cellSize = 1;
+    private GridObject[,] gridObjectArray;
     public GridSysterm(int lenth,int width,float cellSize)
     {
         this.lenth = lenth;
         this.width = width;
         this.cellSize = cellSize;
-        for (int i = 0; i < width; i++) 
+        gridObjectArray = new GridObject[width,lenth];
+        for (int z = 0; z < width; z++) 
         {
-            for (int j = 0; j < lenth; j++)
+            for (int x = 0; x < lenth; x++)
             {
-                Debug.DrawLine(GetWorldPosition(j,i), GetWorldPosition(j,i) + Vector3.right * 0.2f, Color.blue, 1000f);
+                GridObject gridObject  = new GridObject(this,new GridPosition(x,z));
+                gridObjectArray[x,z] = gridObject;
+                //Debug.DrawLine(GetWorldPosition(j,i), GetWorldPosition(j,i) + Vector3.right * 0.2f, Color.blue, 1000f);
             }
         }
         
     }
-    public Vector3 GetWorldPosition(int x,int z)
+    public Vector3 GetWorldPosition(GridPosition gridPosition)
     {
-        return new Vector3(x * cellSize, 0, z * cellSize);
+        return new Vector3(gridPosition.x * cellSize, 0, gridPosition.z * cellSize);
     }
 
     public GridPosition GetGridPosition(Vector3 WorldPosition)
     {
-        GridPosition gridPosition = new GridPosition(Mathf.RoundToInt(WorldPosition.x/cellSize), Mathf.RoundToInt(WorldPosition.z/cellSize));
+        GridPosition gridPosition = new GridPosition(Mathf.FloorToInt(WorldPosition.x/cellSize), Mathf.FloorToInt(WorldPosition.z/cellSize));
         return gridPosition;
     }
 
+    public void CreateDebugObjects(Transform debugPrefabs)
+    {
+        for (int z = 0; z < width; z++)
+        {
+            for (int x = 0; x < lenth; x++)
+            {
+                GridPosition newGridPosition = new GridPosition(x, z);
+                Transform debugPrefabTransform = GameObject.Instantiate(debugPrefabs,GetWorldPosition(newGridPosition),Quaternion.identity);
+                GridDebugObject newGridDebugObject =  debugPrefabTransform.GetComponent<GridDebugObject>();
+                newGridDebugObject.SetGridObject(gridObjectArray[x,z]);
+            }
+        }
+    }
+
+    public GridObject GetGridObject(GridPosition gridPosition)
+    {
+        return gridObjectArray[gridPosition.x, gridPosition.z];
+    }
 
 }
