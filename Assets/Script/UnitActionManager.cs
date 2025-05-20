@@ -9,6 +9,9 @@ public class UnitActionManager : MonoBehaviour
     static private UnitActionManager instance;
     [SerializeField] private LayerMask mask;
     [SerializeField] private Unit selectedUnit;
+    private bool isBusy  = false;
+    public Action OnActionCompeleted;
+
     public event EventHandler OnSelectedUnitChanged;
 
     static public UnitActionManager Instance()
@@ -28,6 +31,8 @@ public class UnitActionManager : MonoBehaviour
 
     private void Update()
     {
+        if (isBusy)
+            return;
         if (Input.GetMouseButtonDown(0))
         {
             if (HandleUnitSelection())
@@ -35,13 +40,18 @@ public class UnitActionManager : MonoBehaviour
                 return;
             }
 
-            if(selectedUnit.GetUnitMove().IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
-                selectedUnit.GetUnitMove().Move(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())));
+            if (selectedUnit.GetUnitMove().IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
+            {
+                isBusy = true;
+                selectedUnit.GetUnitMove().Move(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())),ClearIsBusy);
+            }
+               
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            selectedUnit.GetUnitSpin().Spin();
+            isBusy = true;
+            selectedUnit.GetUnitSpin().Spin(ClearIsBusy);
         }
         
     }
@@ -62,6 +72,16 @@ public class UnitActionManager : MonoBehaviour
         }
           
     }
+
+    private void SetIsBusy()
+    {
+        isBusy = true;
+    }
+    private void ClearIsBusy()
+    {
+        isBusy = false;
+    }
+
 
     public Unit GetUnit()
     {

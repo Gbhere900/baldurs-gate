@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,17 +36,23 @@ public class UnitMove : BaseUnitAction
         }
         else
         {
-            animator.SetBool("isWalking", false);
-            isActive = false;
+            StopMove();
         }
     }
 
-    public void Move(Vector3 targetPosition)
+    public void Move(Vector3 targetPosition,Action OnActionCompeleted)
     {
+        this.OnActionCompeleted = OnActionCompeleted;
         this.targetPosition = targetPosition;
         isActive = true;
     }
 
+    private  void StopMove()
+    {
+        animator.SetBool("isWalking", false);
+        OnActionCompeleted();
+        isActive = false;
+    }
     public bool IsGriddPositionvalid(GridPosition gridPosition)
     {
         return GetValidActionGridPosition().Contains(gridPosition);

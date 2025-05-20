@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,17 +24,20 @@ public class UnitSpin : BaseUnitAction
 
         if (rotateAmount > 360)
         {
+            
             StopSpin();
         }
     }
-    public void Spin()
+    public void Spin(Action OnActionCompeleted)
     {
+        this.OnActionCompeleted = OnActionCompeleted;
         rotateAmount = 0;
         isActive = true;
     }
 
     public void StopSpin()
     {
+        OnActionCompeleted();
         isActive = false;
     }
 
