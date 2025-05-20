@@ -52,7 +52,6 @@ public class Unit : MonoBehaviour
         }
 
         currentGridpostion = LevelGrid.Instance().GetGridPosition(transform.position);
-        Debug.Log(currentGridpostion.ToString());
         if(currentGridpostion != lastGridpostion)
         {
 
