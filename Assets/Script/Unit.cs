@@ -60,10 +60,7 @@ public class Unit : MonoBehaviour
             lastGridpostion = currentGridpostion;
         }
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(transform.position, 2f);
-    }
+
 
     public void Move(Vector3 targetPosition)
     {
