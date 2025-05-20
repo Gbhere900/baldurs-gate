@@ -5,26 +5,21 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    [Header("walk")]
-    [SerializeField] private Vector3 targetPosition;
-    [SerializeField] private float stopDistance = 0.1f;
-    [SerializeField] private float speed  = 1;
 
-    [Header("animation")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private float rotateSpeed = 10f;
-
+    private UnitMove unitMove;
     [Header("Ñ¡ÖÐÍ¼±ê")]
     [SerializeField] private GameObject selectedVisual;
 
-    private GridPosition lastGridpostion;
+
     private GridPosition currentGridpostion;
+    private GridPosition lastGridpostion ;
 
 
     private void Awake()
     {
-        targetPosition = transform.position;
+        unitMove = GetComponent<UnitMove>();
         LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
+        
     }
 
     private void OnEnable()
@@ -39,17 +34,7 @@ public class Unit : MonoBehaviour
     }
     void Update()
     {
-        if(Vector3.Distance(transform.position,targetPosition) > stopDistance)
-        {
-           Vector3 moveDirection = (targetPosition - transform.position).normalized;
-            transform.position += moveDirection * Time.deltaTime * speed;
-            animator.SetBool("isWalking", true);
-            transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime *rotateSpeed );
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
+
 
         currentGridpostion = LevelGrid.Instance().GetGridPosition(transform.position);
         if(currentGridpostion != lastGridpostion)
@@ -61,11 +46,7 @@ public class Unit : MonoBehaviour
     }
 
 
-    public void Move(Vector3 targetPosition)
-    {
-        this.targetPosition = targetPosition;
 
-    }
 
     public void DisAbleSelectedVisual()
     {
@@ -85,5 +66,15 @@ public class Unit : MonoBehaviour
         {
             DisAbleSelectedVisual();
         }
+    }
+
+    public UnitMove GetUnitMove()
+    {
+        return unitMove;
+    }
+
+    public GridPosition GetGridPosition()
+    {
+        return currentGridpostion;
     }
 }

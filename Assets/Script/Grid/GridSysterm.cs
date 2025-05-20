@@ -27,7 +27,7 @@ public class GridSysterm
     }
     public Vector3 GetWorldPosition(GridPosition gridPosition)
     {
-        return new Vector3(gridPosition.x * cellSize, 0, gridPosition.z * cellSize);
+        return new Vector3(gridPosition.x * cellSize + cellSize/2, 0, gridPosition.z * cellSize + cellSize/2);
     }
 
     public GridPosition GetGridPosition(Vector3 WorldPosition)
@@ -55,4 +55,17 @@ public class GridSysterm
         return gridObjectArray[gridPosition.x, gridPosition.z];
     }
 
+    public bool IsActionGridPositionValid(GridPosition gridPosition)
+    {
+            if(gridPosition.x<0||
+                gridPosition.z<0||
+                gridPosition.x>=width||
+                gridPosition.z>=lenth )
+                return false;
+            if (GetGridObject(gridPosition).unit != null)
+                return false;
+            return true;
+       
+        
+    }
 }

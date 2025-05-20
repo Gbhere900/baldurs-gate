@@ -10,6 +10,7 @@ public class UnitActionManager : MonoBehaviour
     [SerializeField] private LayerMask mask;
     [SerializeField] private Unit selectedUnit;
     public event EventHandler OnSelectedUnitChanged;
+
     static public UnitActionManager Instance()
     {
         return instance;
@@ -24,6 +25,7 @@ public class UnitActionManager : MonoBehaviour
         instance = this;
     }
 
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -32,7 +34,9 @@ public class UnitActionManager : MonoBehaviour
             {
                 return;
             }
-            selectedUnit.Move(MousePositionManager.GetMousePosition());
+
+            if(selectedUnit.GetUnitMove().IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
+                selectedUnit.GetUnitMove().Move(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())));
         }
         
     }
