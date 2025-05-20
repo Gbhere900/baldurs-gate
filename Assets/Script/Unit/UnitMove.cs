@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitMove : MonoBehaviour
+public class UnitMove : BaseUnitAction
 {
     [Header("walk")]
     [SerializeField] private Vector3 targetPosition;
@@ -14,15 +14,18 @@ public class UnitMove : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private float rotateSpeed = 10f;
 
-    private Unit unit;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         targetPosition = transform.position;
-        unit = GetComponent<Unit>();
+
     }
     private void Update()
     {
+        if (!isActive)
+            return;
+
         if (Vector3.Distance(transform.position, targetPosition) > stopDistance)
         {
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
@@ -33,13 +36,14 @@ public class UnitMove : MonoBehaviour
         else
         {
             animator.SetBool("isWalking", false);
+            isActive = false;
         }
     }
 
     public void Move(Vector3 targetPosition)
     {
         this.targetPosition = targetPosition;
-
+        isActive = true;
     }
 
     public bool IsGriddPositionvalid(GridPosition gridPosition)
@@ -59,7 +63,6 @@ public class UnitMove : MonoBehaviour
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
                 if(LevelGrid.Instance().IsActionGridPositionValid(testGridPosition))
                 {
-                    Debug.Log(testGridPosition);
                     validGridPositionList.Add(testGridPosition);
                 }
                 

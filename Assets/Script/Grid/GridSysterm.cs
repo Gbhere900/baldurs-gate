@@ -20,7 +20,6 @@ public class GridSysterm
             {
                 GridObject gridObject  = new GridObject(this,new GridPosition(x,z));
                 gridObjectArray[x,z] = gridObject;
-                //Debug.DrawLine(GetWorldPosition(j,i), GetWorldPosition(j,i) + Vector3.right * 0.2f, Color.blue, 1000f);
             }
         }
         

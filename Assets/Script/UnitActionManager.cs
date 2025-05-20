@@ -38,6 +38,11 @@ public class UnitActionManager : MonoBehaviour
             if(selectedUnit.GetUnitMove().IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
                 selectedUnit.GetUnitMove().Move(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())));
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            selectedUnit.GetUnitSpin().Spin();
+        }
         
     }
 

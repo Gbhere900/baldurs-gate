@@ -7,6 +7,7 @@ public class Unit : MonoBehaviour
 {
 
     private UnitMove unitMove;
+    private UnitSpin unitSpin;
     [Header("Ñ¡ÖÐÍ¼±ê")]
     [SerializeField] private GameObject selectedVisual;
 
@@ -18,6 +19,7 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         unitMove = GetComponent<UnitMove>();
+        unitSpin = GetComponent<UnitSpin>();
         LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
         
     }
@@ -71,6 +73,10 @@ public class Unit : MonoBehaviour
     public UnitMove GetUnitMove()
     {
         return unitMove;
+    }
+    public UnitSpin GetUnitSpin()
+    {
+        return unitSpin;
     }
 
     public GridPosition GetGridPosition()
