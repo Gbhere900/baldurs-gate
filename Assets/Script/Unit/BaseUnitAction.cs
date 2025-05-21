@@ -42,4 +42,6 @@ public abstract class BaseUnitAction : MonoBehaviour
         }
         return validGridPositionList;
     }
+
+    public abstract int GetActionPointCost();
 }

@@ -16,6 +16,7 @@ public class UnitActionManager : MonoBehaviour
 
     public event EventHandler OnSelectedUnitChanged;
     public Action OnSelectedUnitActionChanged;
+    public EventHandler OnTakeAction;
 
     static public UnitActionManager Instance()
     {
@@ -53,14 +54,18 @@ public class UnitActionManager : MonoBehaviour
     }
     private void HandleSelectedUnitAction()
     {
-        if (selectedUniAction.IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
+        if (!selectedUniAction.IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
         {
-            SetIsBusy();
-            selectedUniAction.TakeAcion(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())), ClearIsBusy);
+            return;   
         }
+        if(!selectedUnit.TrySpendActionCost(selectedUniAction.GetActionPointCost()))
+        {
+            return;
+        }
+        SetIsBusy();
+        selectedUniAction.TakeAcion(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())), ClearIsBusy);
+        OnTakeAction.Invoke(this,EventArgs.Empty);
     }
-
-       
 
 
     public bool HandleUnitSelection()
@@ -111,6 +116,11 @@ public class UnitActionManager : MonoBehaviour
     public Unit GetSelectedUnit()
     {
         return selectedUnit;
+    }
+
+    public int GetActionPoint()
+    {
+        return selectedUnit.GetActionPoint();
     }
 
 }

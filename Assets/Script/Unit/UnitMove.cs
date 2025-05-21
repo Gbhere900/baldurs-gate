@@ -61,4 +61,9 @@ public class UnitMove : BaseUnitAction
         return "Move";
     }
 
+    public override int GetActionPointCost()
+    {
+        return 1;
+    }
+
 }

@@ -17,6 +17,9 @@ public class Unit : MonoBehaviour
     private GridPosition currentGridpostion;
     private GridPosition lastGridpostion ;
 
+    [SerializeField] private int actionPoint = 2;
+
+
 
     private void Awake()
     {
@@ -91,5 +94,28 @@ public class Unit : MonoBehaviour
     public GridPosition GetGridPosition()
     {
         return currentGridpostion;
+    }
+
+    private void SpendActionCost(int cost)
+    {
+        actionPoint -= cost;
+    }
+
+    public bool TrySpendActionCost(int cost)
+    {
+        if(actionPoint - cost >=0)
+        {
+            SpendActionCost(cost);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int GetActionPoint()
+    {
+        return actionPoint;
     }
 }

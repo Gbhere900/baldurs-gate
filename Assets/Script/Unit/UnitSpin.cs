@@ -59,4 +59,9 @@ public class UnitSpin : BaseUnitAction
         };
 
     }
+
+    public override int GetActionPointCost()
+    {
+        return 2;
+    }
 }
