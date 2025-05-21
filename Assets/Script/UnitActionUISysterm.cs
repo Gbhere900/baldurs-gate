@@ -36,7 +36,7 @@ public class UnitActionUISysterm : MonoBehaviour
         foreach (BaseUnitAction unitAction in ActionArray)
         {
              UnitActionButton unitActionButton =  GameObject.Instantiate(UnitActionButtonPrefabs, UnitActionButtonContainer.transform).GetComponent<UnitActionButton>();
-            unitActionButton.ChangeText(unitAction.GetUnitAcionName());
+            unitActionButton.Initialize(unitAction);
         }
     }
 

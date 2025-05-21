@@ -9,6 +9,7 @@ public class UnitActionManager : MonoBehaviour
     static private UnitActionManager instance;
     [SerializeField] private LayerMask mask;
     [SerializeField] private Unit selectedUnit;
+    private BaseUnitAction selectedUniAction;
     private bool isBusy  = false;
     public Action OnActionCompeleted;
 
@@ -40,20 +41,27 @@ public class UnitActionManager : MonoBehaviour
                 return;
             }
 
-            if (selectedUnit.GetUnitMove().IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
-            {
-                isBusy = true;
-                selectedUnit.GetUnitMove().Move(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())),ClearIsBusy);
-            }
+            HandleSelectedUnitAction();
                
         }
+    }
 
-        if (Input.GetMouseButtonDown(1))
+    private void HandleSelectedUnitAction()
+    {
+        switch (selectedUniAction)
         {
-            isBusy = true;
-            selectedUnit.GetUnitSpin().Spin(ClearIsBusy);
+            case UnitMove unitMove:
+                if (selectedUnit.GetUnitMove().IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
+                {
+                    isBusy = true;
+                    selectedUnit.GetUnitMove().Move(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())), ClearIsBusy);
+                }
+                break;
+            case UnitSpin unitSpin:
+                isBusy = true;
+                selectedUnit.GetUnitSpin().Spin(ClearIsBusy);
+                break;
         }
-        
     }
 
     public bool HandleUnitSelection()
@@ -82,6 +90,10 @@ public class UnitActionManager : MonoBehaviour
         isBusy = false;
     }
 
+    public void SetSelectedUniAction(BaseUnitAction baseUnitAction)
+    {
+        this.selectedUniAction = baseUnitAction;
+    }
 
     public Unit GetUnit()
     {
