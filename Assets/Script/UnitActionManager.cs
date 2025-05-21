@@ -14,6 +14,7 @@ public class UnitActionManager : MonoBehaviour
     public Action OnActionCompeleted;
 
     public event EventHandler OnSelectedUnitChanged;
+    public Action OnSelectedUnitActionChanged;
 
     static public UnitActionManager Instance()
     {
@@ -21,7 +22,7 @@ public class UnitActionManager : MonoBehaviour
     }
     private void Awake()
     {
-        selectedUniAction = selectedUnit.GetComponent<UnitMove>();
+        SetSelectedUnit(selectedUnit);
         if(instance)
         {
             Debug.LogError("instance²»Ö¹Ò»¸ö");
@@ -65,11 +66,9 @@ public class UnitActionManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit rayCastHit, float.MaxValue, mask))
         {
+            SetSelectedUnit(rayCastHit.transform.gameObject.GetComponent<Unit>());
 
-            selectedUnit = rayCastHit.transform.gameObject.GetComponent<Unit>();
-            OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
             return true;
-
         }
         else
         {
@@ -90,15 +89,24 @@ public class UnitActionManager : MonoBehaviour
     public void SetSelectedUniAction(BaseUnitAction baseUnitAction)
     {
         this.selectedUniAction = baseUnitAction;
+        OnSelectedUnitActionChanged?.Invoke();
+    }
+    public BaseUnitAction GetSelectedUnitAction()
+    {
+        return selectedUniAction;
     }
 
+
+    public void SetSelectedUnit(Unit unit)
+    {
+        selectedUnit = unit;
+        OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+
+        SetSelectedUniAction(selectedUnit.GetComponent<UnitMove>());
+    }
     public Unit GetSelectedUnit()
     {
         return selectedUnit;
     }
 
-    public BaseUnitAction GetSelectedUnitAction()
-    {
-        return selectedUniAction;
-    }
 }

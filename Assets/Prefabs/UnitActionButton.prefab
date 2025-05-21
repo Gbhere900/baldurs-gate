@@ -168,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textMeshProUGUI: {fileID: 2128852027486787811}
   button: {fileID: 5966401556143717992}
+  selectedShadowVisual: {fileID: 5551849015632608947}
 --- !u!1 &470315135916299482
 GameObject:
   m_ObjectHideFlags: 0
