@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Unit : MonoBehaviour
 {
 
     private UnitMove unitMove;
     private UnitSpin unitSpin;
+    private BaseUnitAction[] baseUnitActionArray;
     [Header("Ñ¡ÖÐÍ¼±ê")]
     [SerializeField] private GameObject selectedVisual;
 
@@ -20,6 +22,7 @@ public class Unit : MonoBehaviour
     {
         unitMove = GetComponent<UnitMove>();
         unitSpin = GetComponent<UnitSpin>();
+        baseUnitActionArray = GetComponents<BaseUnitAction>();
         LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
         
     }
@@ -77,6 +80,12 @@ public class Unit : MonoBehaviour
     public UnitSpin GetUnitSpin()
     {
         return unitSpin;
+    }
+
+    public BaseUnitAction[] GetBaseUnitActionArray()
+    {
+
+        return baseUnitActionArray; 
     }
 
     public GridPosition GetGridPosition()

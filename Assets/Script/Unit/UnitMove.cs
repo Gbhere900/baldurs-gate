@@ -80,4 +80,9 @@ public class UnitMove : BaseUnitAction
         return validGridPositionList;
     }
 
+    public override string GetUnitAcionName()
+    {
+        return "Move";
+    }
+
 }

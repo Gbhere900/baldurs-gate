@@ -67,10 +67,12 @@
     <Compile Include="Assets\Script\Unit\UnitMove.cs" />
     <Compile Include="Assets\Script\UnitActionManager.cs" />
     <Compile Include="Assets\Script\Camera\CameraController.cs" />
+    <Compile Include="Assets\Script\UnitActionUISysterm.cs" />
     <Compile Include="Assets\Script\Grid\GridSystermVisual.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Script\Unit\UnitSpin.cs" />
     <Compile Include="Assets\Script\Grid\GridDebugObject.cs" />
+    <Compile Include="Assets\Script\UnitActionButton.cs" />
     <Compile Include="Assets\Script\Grid\GridPosition.cs" />
     <Compile Include="Assets\Script\Grid\GridSysterm.cs" />
     <Compile Include="Assets\Script\Unit\BaseUnitAction.cs" />

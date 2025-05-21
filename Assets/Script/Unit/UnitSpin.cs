@@ -41,4 +41,8 @@ public class UnitSpin : BaseUnitAction
         isActive = false;
     }
 
+    public override string GetUnitAcionName()
+    {
+        return "Spin";
+    }
 }
