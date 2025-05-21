@@ -12,6 +12,7 @@ public class UnitActionManager : MonoBehaviour
     private BaseUnitAction selectedUniAction;
     private bool isBusy  = false;
     public Action OnActionCompeleted;
+    public event EventHandler<bool> OnIsBusyChanged; 
 
     public event EventHandler OnSelectedUnitChanged;
     public Action OnSelectedUnitActionChanged;
@@ -54,6 +55,7 @@ public class UnitActionManager : MonoBehaviour
     {
         if (selectedUniAction.IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
         {
+            SetIsBusy();
             selectedUniAction.TakeAcion(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())), ClearIsBusy);
         }
     }
@@ -80,10 +82,12 @@ public class UnitActionManager : MonoBehaviour
     private void SetIsBusy()
     {
         isBusy = true;
+        OnIsBusyChanged.Invoke(this, true);
     }
     private void ClearIsBusy()
     {
         isBusy = false;
+        OnIsBusyChanged.Invoke(this, false);
     }
 
     public void SetSelectedUniAction(BaseUnitAction baseUnitAction)

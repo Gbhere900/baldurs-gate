@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Grid\GridSystermVisualSingle.cs" />
     <Compile Include="Assets\Script\Unit\Unit.cs" />
+    <Compile Include="Assets\Script\BusyUI.cs" />
     <Compile Include="Assets\Script\MousePositionManager.cs" />
     <Compile Include="Assets\Script\Grid\GridObject.cs" />
     <Compile Include="Assets\Script\Unit\UnitMove.cs" />
