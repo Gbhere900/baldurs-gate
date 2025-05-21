@@ -23,12 +23,17 @@ public class GridSystermVisual : MonoBehaviour
     }
     private void Update()
     {
-        HideAllSingles();
-        List<GridPosition> validGridPositions = UnitActionManager.Instance().GetUnit().GetUnitMove().GetValidActionGridPosition();
-        ShowSingles(validGridPositions);
+        UpdateVisual();
     }
 
-    public void HideAllSingles()
+    private void UpdateVisual()
+    {
+        HideAllSingles();
+        List<GridPosition> validGridPositions = UnitActionManager.Instance().GetSelectedUnitAction().GetValidActionGridPosition();
+        ShowValidSingles(validGridPositions);
+
+    }
+    private void HideAllSingles()
     {
         foreach(GridSystermVisualSingle single in gridSystermVisualSingleArray)
         {
@@ -36,7 +41,7 @@ public class GridSystermVisual : MonoBehaviour
         }
     }
 
-    public void ShowSingles(List<GridPosition> validActionGridPosition)
+    private void ShowValidSingles(List<GridPosition> validActionGridPosition)
     {
         foreach(GridPosition gridPosition in validActionGridPosition)
         {

@@ -7,6 +7,11 @@ public class UnitSpin : BaseUnitAction
 {
     [SerializeField] private float rotateSpeed = 1f;
     private float rotateAmount = 0;
+    protected override void Awake()
+    {
+        base.Awake();
+        maxActionDistance = 0;
+    }
     private void Update()
     {
         if (!isActive)
@@ -28,7 +33,7 @@ public class UnitSpin : BaseUnitAction
             StopSpin();
         }
     }
-    public void Spin(Action OnActionCompeleted)
+    public override void TakeAcion(Vector3 targetPosition, Action OnActionCompeleted)
     {
         this.OnActionCompeleted = OnActionCompeleted;
         rotateAmount = 0;
@@ -44,5 +49,14 @@ public class UnitSpin : BaseUnitAction
     public override string GetUnitAcionName()
     {
         return "Spin";
+    }
+
+    public override List<GridPosition> GetValidActionGridPosition()
+    {
+        return  new List<GridPosition>()
+        {
+            unit.GetGridPosition()
+        };
+
     }
 }

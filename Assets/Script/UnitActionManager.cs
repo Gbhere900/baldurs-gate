@@ -21,6 +21,7 @@ public class UnitActionManager : MonoBehaviour
     }
     private void Awake()
     {
+        selectedUniAction = selectedUnit.GetComponent<UnitMove>();
         if(instance)
         {
             Debug.LogError("instance²»Ö¹Ò»¸ö");
@@ -34,41 +35,37 @@ public class UnitActionManager : MonoBehaviour
     {
         if (isBusy)
             return;
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             if (HandleUnitSelection())
             {
                 return;
             }
-
+            
             HandleSelectedUnitAction();
-               
         }
     }
-
     private void HandleSelectedUnitAction()
     {
-        switch (selectedUniAction)
+        if (selectedUniAction.IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
         {
-            case UnitMove unitMove:
-                if (selectedUnit.GetUnitMove().IsGriddPositionvalid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
-                {
-                    isBusy = true;
-                    selectedUnit.GetUnitMove().Move(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())), ClearIsBusy);
-                }
-                break;
-            case UnitSpin unitSpin:
-                isBusy = true;
-                selectedUnit.GetUnitSpin().Spin(ClearIsBusy);
-                break;
+            selectedUniAction.TakeAcion(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())), ClearIsBusy);
         }
     }
+
+       
+
 
     public bool HandleUnitSelection()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit rayCastHit, float.MaxValue, mask))
         {
+
             selectedUnit = rayCastHit.transform.gameObject.GetComponent<Unit>();
             OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
             return true;
@@ -95,9 +92,13 @@ public class UnitActionManager : MonoBehaviour
         this.selectedUniAction = baseUnitAction;
     }
 
-    public Unit GetUnit()
+    public Unit GetSelectedUnit()
     {
         return selectedUnit;
     }
 
+    public BaseUnitAction GetSelectedUnitAction()
+    {
+        return selectedUniAction;
+    }
 }

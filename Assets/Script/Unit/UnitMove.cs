@@ -9,7 +9,6 @@ public class UnitMove : BaseUnitAction
     [SerializeField] private Vector3 targetPosition;
     [SerializeField] private float stopDistance = 0.1f;
     [SerializeField] private float speed = 1;
-    [SerializeField] private int maxMoveDistance = 1;
 
     [Header("animation")]
     [SerializeField] private Animator animator;
@@ -19,6 +18,7 @@ public class UnitMove : BaseUnitAction
     protected override void Awake()
     {
         base.Awake();
+        maxActionDistance = 3;
         targetPosition = transform.position;
 
     }
@@ -40,7 +40,7 @@ public class UnitMove : BaseUnitAction
         }
     }
 
-    public void Move(Vector3 targetPosition,Action OnActionCompeleted)
+    public override void TakeAcion(Vector3 targetPosition, Action OnActionCompeleted)
     {
         this.OnActionCompeleted = OnActionCompeleted;
         this.targetPosition = targetPosition;
@@ -53,32 +53,8 @@ public class UnitMove : BaseUnitAction
         OnActionCompeleted();
         isActive = false;
     }
-    public bool IsGriddPositionvalid(GridPosition gridPosition)
-    {
-        return GetValidActionGridPosition().Contains(gridPosition);
-    }
-    public List<GridPosition> GetValidActionGridPosition()
-    {
-        GridPosition unitGridPosition = unit.GetGridPosition();
-        List<GridPosition> validGridPositionList = new List<GridPosition>();
-        for (int x = -maxMoveDistance; x <= maxMoveDistance; x++)
-        {
-            for (int z = -maxMoveDistance; z <= maxMoveDistance; z++)
-            {
 
-                GridPosition offsetGridPosition = new GridPosition(x, z);
-                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
-                if(LevelGrid.Instance().IsActionGridPositionValid(testGridPosition))
-                {
-                    validGridPositionList.Add(testGridPosition);
-                }
-                
-            }
-        }
 
-        
-        return validGridPositionList;
-    }
 
     public override string GetUnitAcionName()
     {

@@ -26,7 +26,7 @@ public class UnitActionUISysterm : MonoBehaviour
 
     public void UpdateUnitActionButtons()
     {
-        Unit unit = UnitActionManager.Instance().GetUnit();
+        Unit unit = UnitActionManager.Instance().GetSelectedUnit();
         BaseUnitAction[] ActionArray = unit.GetBaseUnitActionArray();
         for (int i = UnitActionButtonContainer.transform.childCount-1; i >= 0; i--)
         {

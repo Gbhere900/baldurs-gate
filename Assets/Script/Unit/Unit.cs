@@ -65,7 +65,7 @@ public class Unit : MonoBehaviour
     private void UpdateSelectedVisual(object sender,EventArgs empty)
     {
         Debug.Log("changed");
-        if(UnitActionManager.Instance().GetUnit() == this)
+        if(UnitActionManager.Instance().GetSelectedUnit() == this)
             EnableSelectedVisual();
         else
         {
