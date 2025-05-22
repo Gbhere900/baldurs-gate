@@ -63,6 +63,11 @@ public class LevelGrid : MonoBehaviour
         return gridSysterm.IsActionGridPositionValid(gridPosition);
     }
 
+    public bool IsGridPositionHasUnit(GridPosition gridPosition)
+    {
+        return gridSysterm.IsGridPositionHasUnit((GridPosition)gridPosition);
+    }
+
     public int GetGridLenth()
 
     {

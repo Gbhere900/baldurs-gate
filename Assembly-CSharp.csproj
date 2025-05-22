@@ -76,6 +76,7 @@
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Script\Unit\UnitSpin.cs" />
     <Compile Include="Assets\Script\Grid\GridDebugObject.cs" />
+    <Compile Include="Assets\Script\Unit\UnitShoot.cs" />
     <Compile Include="Assets\Script\ActionPoint.cs" />
     <Compile Include="Assets\Script\Grid\GridPosition.cs" />
     <Compile Include="Assets\Script\Grid\GridSysterm.cs" />

@@ -10,7 +10,7 @@ public class UnitSpin : BaseUnitAction
     protected override void Awake()
     {
         base.Awake();
-        maxActionDistance = 0;
+
     }
     private void Update()
     {
@@ -35,15 +35,13 @@ public class UnitSpin : BaseUnitAction
     }
     public override void TakeAcion(Vector3 targetPosition, Action OnActionCompeleted)
     {
-        this.OnActionCompeleted = OnActionCompeleted;
+        ActionStart(OnActionCompeleted);
         rotateAmount = 0;
-        isActive = true;
     }
 
     public void StopSpin()
     {
-        OnActionCompeleted();
-        isActive = false;
+       ActionEnd();
     }
 
     public override string GetUnitAcionName()
@@ -63,5 +61,10 @@ public class UnitSpin : BaseUnitAction
     public override int GetActionPointCost()
     {
         return 2;
+    }
+
+    public override int GetMaxActionDistance()
+    {
+        return 0;
     }
 }

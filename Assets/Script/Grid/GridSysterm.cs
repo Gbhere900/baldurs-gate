@@ -61,10 +61,17 @@ public class GridSysterm
                 gridPosition.x>=width||
                 gridPosition.z>=lenth )
                 return false;
-            if (GetGridObject(gridPosition).unit != null)
-                return false;
+
             return true;
        
         
+    }
+
+    public bool IsGridPositionHasUnit(GridPosition gridPosition)
+    {
+        if (GetGridObject(gridPosition).unit == null)
+            return false;
+        else
+            return true;
     }
 }

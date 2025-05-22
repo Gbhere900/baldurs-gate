@@ -18,7 +18,6 @@ public class UnitMove : BaseUnitAction
     protected override void Awake()
     {
         base.Awake();
-        maxActionDistance = 3;
         targetPosition = transform.position;
 
     }
@@ -42,19 +41,38 @@ public class UnitMove : BaseUnitAction
 
     public override void TakeAcion(Vector3 targetPosition, Action OnActionCompeleted)
     {
-        this.OnActionCompeleted = OnActionCompeleted;
+        ActionStart(OnActionCompeleted);
         this.targetPosition = targetPosition;
-        isActive = true;
     }
 
     private  void StopMove()
     {
         animator.SetBool("isWalking", false);
-        OnActionCompeleted();
-        isActive = false;
+        ActionEnd();
     }
 
+    public override List<GridPosition> GetValidActionGridPosition()
+    {
+        GridPosition unitGridPosition = unit.GetGridPosition();
+        List<GridPosition> validGridPositionList = new List<GridPosition>();
+        for (int x = -GetMaxActionDistance(); x <= GetMaxActionDistance(); x++)
+        {
+            for (int z = -GetMaxActionDistance(); z <= GetMaxActionDistance(); z++)
+            {
 
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+
+                //if 符合数组不越界以及格子上有单位
+                if (LevelGrid.Instance().IsActionGridPositionValid(testGridPosition) && !LevelGrid.Instance().IsGridPositionHasUnit(testGridPosition))
+                {
+                    validGridPositionList.Add(testGridPosition);
+                }
+
+            }
+        }
+        return validGridPositionList;
+    }
 
     public override string GetUnitAcionName()
     {
@@ -64,6 +82,11 @@ public class UnitMove : BaseUnitAction
     public override int GetActionPointCost()
     {
         return 1;
+    }
+
+    public override int GetMaxActionDistance()
+    {
+        return 3;
     }
 
 }
