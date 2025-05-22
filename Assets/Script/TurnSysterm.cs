@@ -7,6 +7,7 @@ public class TurnSysterm : MonoBehaviour
 {
     private int turnCount =1;
     public Action OnTurnCountChanged;
+    [SerializeField] private bool IsEnemyTurn = false;
 
     private static TurnSysterm instance;
 
@@ -27,6 +28,11 @@ public class TurnSysterm : MonoBehaviour
     public void NextTurn()
     {
        turnCount++;
+        IsEnemyTurn = !IsEnemyTurn ;
        OnTurnCountChanged.Invoke();
+    }
+    public bool GetIsEnemyTurn()
+    {
+        return IsEnemyTurn;
     }
 }

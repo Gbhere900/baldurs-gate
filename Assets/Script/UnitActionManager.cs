@@ -73,9 +73,13 @@ public class UnitActionManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit rayCastHit, float.MaxValue, mask))
         {
-            SetSelectedUnit(rayCastHit.transform.gameObject.GetComponent<Unit>());
-
-            return true;
+            if (!rayCastHit.transform.gameObject.GetComponent<Unit>().GetIsEnemy())
+            {
+                SetSelectedUnit(rayCastHit.transform.gameObject.GetComponent<Unit>());
+                return true;
+            }
+            else 
+                return false;
         }
         else
         {

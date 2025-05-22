@@ -17,9 +17,12 @@ public class Unit : MonoBehaviour
     private GridPosition currentGridpostion;
     private GridPosition lastGridpostion ;
 
+    [Header("行动点")]
     [SerializeField] private int MAX_actionPoint = 2;
     [SerializeField] private int actionPoint = 2;
 
+    [Header("阵营")]
+    [SerializeField] private bool isEnemy = false;
 
 
     private void Awake()
@@ -130,6 +133,13 @@ public class Unit : MonoBehaviour
 
     public void TurnSysyerm_OnTurnCountChanged()
     {
+        if(isEnemy&&TurnSysterm.Instance().GetIsEnemyTurn() || 
+            !isEnemy && !TurnSysterm.Instance().GetIsEnemyTurn() )
         ReSetAtionPoint();
+    }
+
+    public bool GetIsEnemy()
+    {
+        return isEnemy;
     }
 }
