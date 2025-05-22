@@ -17,6 +17,7 @@ public class Unit : MonoBehaviour
     private GridPosition currentGridpostion;
     private GridPosition lastGridpostion ;
 
+    [SerializeField] private int MAX_actionPoint = 2;
     [SerializeField] private int actionPoint = 2;
 
 
@@ -27,18 +28,21 @@ public class Unit : MonoBehaviour
         unitSpin = GetComponent<UnitSpin>();
         baseUnitActionArray = GetComponents<BaseUnitAction>();
         LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
-        
+        ReSetAtionPoint();
     }
 
     private void OnEnable()
     {
         UnitActionManager.Instance().OnSelectedUnitChanged += UpdateSelectedVisual;
+        TurnSysterm.Instance().OnTurnCountChanged += TurnSysyerm_OnTurnCountChanged;
+
         UpdateSelectedVisual(this,EventArgs.Empty);
     }
 
     private void OnDisable()
     {
         UnitActionManager.Instance().OnSelectedUnitChanged -= UpdateSelectedVisual;
+        TurnSysterm.Instance().OnTurnCountChanged -= TurnSysyerm_OnTurnCountChanged;
     }
     void Update()
     {
@@ -117,5 +121,15 @@ public class Unit : MonoBehaviour
     public int GetActionPoint()
     {
         return actionPoint;
+    }
+
+    public void ReSetAtionPoint()
+    {
+        actionPoint = MAX_actionPoint;
+    }
+
+    public void TurnSysyerm_OnTurnCountChanged()
+    {
+        ReSetAtionPoint();
     }
 }

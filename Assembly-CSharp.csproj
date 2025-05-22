@@ -62,18 +62,20 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Grid\GridSystermVisualSingle.cs" />
     <Compile Include="Assets\Script\Unit\Unit.cs" />
-    <Compile Include="Assets\Script\BusyUI.cs" />
+    <Compile Include="Assets\Script\UI\UnitActionUISysterm.cs" />
     <Compile Include="Assets\Script\MousePositionManager.cs" />
     <Compile Include="Assets\Script\Grid\GridObject.cs" />
     <Compile Include="Assets\Script\Unit\UnitMove.cs" />
     <Compile Include="Assets\Script\UnitActionManager.cs" />
     <Compile Include="Assets\Script\Camera\CameraController.cs" />
-    <Compile Include="Assets\Script\UnitActionUISysterm.cs" />
+    <Compile Include="Assets\Script\TurnSysterm.cs" />
     <Compile Include="Assets\Script\Grid\GridSystermVisual.cs" />
+    <Compile Include="Assets\Script\UI\TurnSystermUI.cs" />
+    <Compile Include="Assets\Script\UI\UnitActionButton.cs" />
+    <Compile Include="Assets\Script\UI\BusyUI.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Script\Unit\UnitSpin.cs" />
     <Compile Include="Assets\Script\Grid\GridDebugObject.cs" />
-    <Compile Include="Assets\Script\UnitActionButton.cs" />
     <Compile Include="Assets\Script\ActionPoint.cs" />
     <Compile Include="Assets\Script\Grid\GridPosition.cs" />
     <Compile Include="Assets\Script\Grid\GridSysterm.cs" />

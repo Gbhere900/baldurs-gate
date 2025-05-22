@@ -26,6 +26,11 @@ public class ActionPoint : MonoBehaviour
         UpdateActionPointText();
     }
 
+    //直接update暴力解决
+    private void Update()
+    {
+        UpdateActionPointText();
+    }
 
     public void UpdateActionPointText()
     {
