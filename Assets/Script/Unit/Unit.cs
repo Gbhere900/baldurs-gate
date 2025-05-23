@@ -10,6 +10,7 @@ public class Unit : MonoBehaviour
     private UnitMove unitMove;
     private UnitSpin unitSpin;
     private BaseUnitAction[] baseUnitActionArray;
+    [SerializeField] private Transform hitPoint;
     [Header("Ñ¡ÖÐÍ¼±ê")]
     [SerializeField] private GameObject selectedVisual;
 
@@ -141,5 +142,10 @@ public class Unit : MonoBehaviour
     public bool GetIsEnemy()
     {
         return isEnemy;
+    }
+    public Transform GetHitPoint()
+    {
+        Debug.LogWarning(hitPoint.transform.position);
+        return hitPoint;
     }
 }

@@ -10,9 +10,13 @@ public class UnitMove : BaseUnitAction
     [SerializeField] private float stopDistance = 0.1f;
     [SerializeField] private float speed = 1;
 
-    [Header("animation")]
-    [SerializeField] private Animator animator;
+    [Header("rotate")]
+    //[SerializeField] private Animator animator;
     [SerializeField] private float rotateSpeed = 10f;
+
+    [Header("animator")]
+    public Action OnStartWalkAnimation;
+    public Action OnStopWalkAnimation;
 
 
     protected override void Awake()
@@ -30,7 +34,8 @@ public class UnitMove : BaseUnitAction
         {
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
             transform.position += moveDirection * Time.deltaTime * speed;
-            animator.SetBool("isWalking", true);
+           // animator.SetBool("isWalking", true);
+            OnStartWalkAnimation.Invoke();
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotateSpeed);
         }
         else
@@ -47,7 +52,7 @@ public class UnitMove : BaseUnitAction
 
     private  void StopMove()
     {
-        animator.SetBool("isWalking", false);
+        OnStopWalkAnimation.Invoke();
         ActionEnd();
     }
 

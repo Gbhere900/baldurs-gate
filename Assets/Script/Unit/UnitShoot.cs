@@ -9,6 +9,9 @@ public class UnitShoot : BaseUnitAction
     private ShootState shootState ;
     private float shootStateTimer = 0;
     private Unit targetUnit;
+
+    [Header("animator")]
+    public Action<Unit> OnStartShootAnimation;
     public override int GetActionPointCost()
     {
         return 1;
@@ -32,7 +35,7 @@ public class UnitShoot : BaseUnitAction
         {
             case ShootState.aim:
                 Vector3 aimDirection = (targetUnit.transform.position - transform.position).normalized;
-                transform.forward = Vector3.Lerp(transform.forward,aimDirection,Time.deltaTime);
+                transform.forward = Vector3.Lerp(transform.forward,aimDirection,Time.deltaTime * 5);   //* 5加快旋转速度
                 break;
             case ShootState.shoot:
                 break;
@@ -55,6 +58,7 @@ public class UnitShoot : BaseUnitAction
                     float shootTime = 1f;
                     shootStateTimer = shootTime;
                     shootState = ShootState.shoot;
+                    OnStartShootAnimation.Invoke(targetUnit);
                     Debug.Log("shoot");
                     break;
 
