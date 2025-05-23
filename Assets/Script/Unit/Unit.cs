@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Unit : MonoBehaviour
 {
-
+    private Health health;
     private UnitMove unitMove;
     private UnitSpin unitSpin;
     private BaseUnitAction[] baseUnitActionArray;
@@ -30,6 +30,7 @@ public class Unit : MonoBehaviour
     {
         unitMove = GetComponent<UnitMove>();
         unitSpin = GetComponent<UnitSpin>();
+        health = GetComponent<Health>();
         baseUnitActionArray = GetComponents<BaseUnitAction>();
         LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
         ReSetAtionPoint();
@@ -39,6 +40,7 @@ public class Unit : MonoBehaviour
     {
         UnitActionManager.Instance().OnSelectedUnitChanged += UpdateSelectedVisual;
         TurnSysterm.Instance().OnTurnCountChanged += TurnSysyerm_OnTurnCountChanged;
+        health.OnDead += Health_OnDead;
 
         UpdateSelectedVisual(this,EventArgs.Empty);
     }
@@ -47,6 +49,7 @@ public class Unit : MonoBehaviour
     {
         UnitActionManager.Instance().OnSelectedUnitChanged -= UpdateSelectedVisual;
         TurnSysterm.Instance().OnTurnCountChanged -= TurnSysyerm_OnTurnCountChanged;
+        health.OnDead -= Health_OnDead;
     }
     void Update()
     {
@@ -147,5 +150,15 @@ public class Unit : MonoBehaviour
     {
         Debug.LogWarning(hitPoint.transform.position);
         return hitPoint;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health.TakeDamage(damage);
+    }
+
+    private void Health_OnDead()
+    {
+        Destroy(gameObject);
     }
 }

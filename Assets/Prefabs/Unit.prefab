@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 2285725283625063137}
   - component: {fileID: 6703936344786591906}
   - component: {fileID: 7956972060607484164}
+  - component: {fileID: 2693294736254144331}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -217,6 +218,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff46463e67db5444b0f9fdf7a451bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+--- !u!114 &2693294736254144331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2951355042600871148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f91792a6d39d2499749d8716cc2cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
 --- !u!1 &4421600224981068766
 GameObject:
   m_ObjectHideFlags: 0

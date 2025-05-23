@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 7490663856407209288}
   - component: {fileID: 2285725283625063137}
   - component: {fileID: 6703936344786591906}
+  - component: {fileID: 8013991897372616402}
   m_Layer: 7
   m_Name: Unit_enemy
   m_TagString: Untagged
@@ -187,6 +188,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 360
+--- !u!114 &8013991897372616402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2951355042600871148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f91792a6d39d2499749d8716cc2cbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
 --- !u!1 &4525470039029728704
 GameObject:
   m_ObjectHideFlags: 0

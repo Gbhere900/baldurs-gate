@@ -9,6 +9,7 @@ public class UnitShoot : BaseUnitAction
     private ShootState shootState ;
     private float shootStateTimer = 0;
     private Unit targetUnit;
+    [SerializeField] private int damage =10;
 
     [Header("animator")]
     public Action<Unit> OnStartShootAnimation;
@@ -59,6 +60,7 @@ public class UnitShoot : BaseUnitAction
                     shootStateTimer = shootTime;
                     shootState = ShootState.shoot;
                     OnStartShootAnimation.Invoke(targetUnit);
+                    targetUnit.GetComponent<Health>().TakeDamage(damage);
                     Debug.Log("shoot");
                     break;
 
