@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     private Health health;
     private UnitMove unitMove;
     private UnitSpin unitSpin;
+    private RagDoorSpawner ragDoorSpawner;
     private BaseUnitAction[] baseUnitActionArray;
     [SerializeField] private Transform hitPoint;
     [Header("Ñ¡ÖÐÍ¼±ê")]
@@ -31,6 +32,7 @@ public class Unit : MonoBehaviour
         unitMove = GetComponent<UnitMove>();
         unitSpin = GetComponent<UnitSpin>();
         health = GetComponent<Health>();
+        ragDoorSpawner = GetComponent<RagDoorSpawner>();
         baseUnitActionArray = GetComponents<BaseUnitAction>();
         LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
         ReSetAtionPoint();
@@ -148,7 +150,6 @@ public class Unit : MonoBehaviour
     }
     public Transform GetHitPoint()
     {
-        Debug.LogWarning(hitPoint.transform.position);
         return hitPoint;
     }
 
@@ -159,6 +160,7 @@ public class Unit : MonoBehaviour
 
     private void Health_OnDead()
     {
+        ragDoorSpawner.SpawnRagDoll();
         Destroy(gameObject);
     }
 }

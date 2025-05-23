@@ -63,6 +63,7 @@
     <Compile Include="Assets\Script\Unit\BulletEffect.cs" />
     <Compile Include="Assets\Script\Grid\GridSystermVisualSingle.cs" />
     <Compile Include="Assets\Script\Unit\Unit.cs" />
+    <Compile Include="Assets\Script\RagDoorSpawner.cs" />
     <Compile Include="Assets\Script\UI\UnitActionUISysterm.cs" />
     <Compile Include="Assets\Script\MousePositionManager.cs" />
     <Compile Include="Assets\Script\Grid\GridObject.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Assets\Script\Grid\GridSysterm.cs" />
     <Compile Include="Assets\Script\Unit\BaseUnitAction.cs" />
     <Compile Include="Assets\Script\Grid\Test.cs" />
+    <Compile Include="Assets\Script\RagDoll.cs" />
     <Compile Include="Assets\Script\Grid\LevelGrid.cs" />
   </ItemGroup>
   <ItemGroup>
