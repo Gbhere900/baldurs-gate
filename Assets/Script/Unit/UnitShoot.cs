@@ -9,7 +9,7 @@ public class UnitShoot : BaseUnitAction
     private ShootState shootState ;
     private float shootStateTimer = 0;
     private Unit targetUnit;
-    [SerializeField] private int damage =10;
+    [SerializeField] private int damage =4;
 
     [Header("animator")]
     public Action<Unit> OnStartShootAnimation;

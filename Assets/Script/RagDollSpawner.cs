@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RagDoorSpawner : MonoBehaviour
+public class RagDollSpawner : MonoBehaviour
 {
     [SerializeField] private RagDoll ragDollPrefabs;
     [SerializeField] private Transform originRoot;

@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private  int maxHealth = 100;
     private int health;
-    public Action OnDead; 
-
+    public Action OnDead;
+    public Action OnTakenDamage;
     private void OnEnable()
     {
         health = maxHealth;
@@ -25,5 +25,11 @@ public class Health : MonoBehaviour
         {
             OnDead.Invoke();
         }
+        OnTakenDamage.Invoke();
+    }
+
+    public float GetHealthIdentified()
+    {
+        return (float)health /maxHealth;
     }
 }

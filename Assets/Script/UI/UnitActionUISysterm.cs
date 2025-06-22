@@ -51,7 +51,7 @@ public class UnitActionUISysterm : MonoBehaviour
         }
     }
 
-    private void UnitActionManager_OnSelectedUnitChanged(object sneder,EventArgs empty)
+    private void UnitActionManager_OnSelectedUnitChanged(object sender,EventArgs empty)
     {
         UpdateUnitActionButtons();
     }

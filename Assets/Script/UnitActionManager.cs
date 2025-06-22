@@ -58,7 +58,7 @@ public class UnitActionManager : MonoBehaviour
         {
             return;   
         }
-        if(!selectedUnit.TrySpendActionCost(selectedUniAction.GetActionPointCost()))
+        if(!selectedUnit.TrySpendActionPoint(selectedUniAction.GetActionPointCost()))
         {
             return;
         }

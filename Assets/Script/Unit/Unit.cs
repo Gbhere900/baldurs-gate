@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
     private Health health;
     private UnitMove unitMove;
     private UnitSpin unitSpin;
-    private RagDoorSpawner ragDoorSpawner;
+    private RagDollSpawner ragDollSpawner;
     private BaseUnitAction[] baseUnitActionArray;
     [SerializeField] private Transform hitPoint;
     [Header("选中图标")]
@@ -22,6 +22,7 @@ public class Unit : MonoBehaviour
     [Header("行动点")]
     [SerializeField] private int MAX_actionPoint = 2;
     [SerializeField] private int actionPoint = 2;
+    public  Action OnActionPointChanged;
 
     [Header("阵营")]
     [SerializeField] private bool isEnemy = false;
@@ -32,7 +33,7 @@ public class Unit : MonoBehaviour
         unitMove = GetComponent<UnitMove>();
         unitSpin = GetComponent<UnitSpin>();
         health = GetComponent<Health>();
-        ragDoorSpawner = GetComponent<RagDoorSpawner>();
+        ragDollSpawner = GetComponent<RagDollSpawner>();
         baseUnitActionArray = GetComponents<BaseUnitAction>();
         LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
         ReSetAtionPoint();
@@ -41,7 +42,7 @@ public class Unit : MonoBehaviour
     private void OnEnable()
     {
         UnitActionManager.Instance().OnSelectedUnitChanged += UpdateSelectedVisual;
-        TurnSysterm.Instance().OnTurnCountChanged += TurnSysyerm_OnTurnCountChanged;
+        TurnSysterm.Instance().OnTurnCountChanged += TurnSysterm_OnTurnCountChanged;
         health.OnDead += Health_OnDead;
 
         UpdateSelectedVisual(this,EventArgs.Empty);
@@ -50,7 +51,7 @@ public class Unit : MonoBehaviour
     private void OnDisable()
     {
         UnitActionManager.Instance().OnSelectedUnitChanged -= UpdateSelectedVisual;
-        TurnSysterm.Instance().OnTurnCountChanged -= TurnSysyerm_OnTurnCountChanged;
+        TurnSysterm.Instance().OnTurnCountChanged -= TurnSysterm_OnTurnCountChanged;
         health.OnDead -= Health_OnDead;
     }
     void Update()
@@ -109,16 +110,17 @@ public class Unit : MonoBehaviour
         return currentGridpostion;
     }
 
-    private void SpendActionCost(int cost)
+    private void SpendActionPoint(int cost)
     {
         actionPoint -= cost;
+        OnActionPointChanged?.Invoke();
     }
 
-    public bool TrySpendActionCost(int cost)
+    public bool TrySpendActionPoint(int cost)
     {
         if(actionPoint - cost >=0)
         {
-            SpendActionCost(cost);
+            SpendActionPoint(cost);
             return true;
         }
         else
@@ -135,9 +137,10 @@ public class Unit : MonoBehaviour
     public void ReSetAtionPoint()
     {
         actionPoint = MAX_actionPoint;
+        OnActionPointChanged.Invoke();
     }
 
-    public void TurnSysyerm_OnTurnCountChanged()
+    public void TurnSysterm_OnTurnCountChanged()
     {
         if(isEnemy&&TurnSysterm.Instance().GetIsEnemyTurn() || 
             !isEnemy && !TurnSysterm.Instance().GetIsEnemyTurn() )
@@ -160,7 +163,7 @@ public class Unit : MonoBehaviour
 
     private void Health_OnDead()
     {
-        ragDoorSpawner.SpawnRagDoll();
+        ragDollSpawner.SpawnRagDoll();
         Destroy(gameObject);
     }
 }
