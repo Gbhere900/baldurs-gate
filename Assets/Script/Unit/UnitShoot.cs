@@ -87,8 +87,8 @@ public class UnitShoot : BaseUnitAction
         shootStateTimer = aimTime;
         Debug.Log("aim");
 
-        ActionStart(OnActionCompeleted);
         targetUnit = LevelGrid.Instance().GetUnitAtGridPosition(LevelGrid.Instance().GetGridPosition(targetPosition));
+        ActionStart(OnActionCompeleted);
 
     }
 
@@ -115,5 +115,8 @@ public class UnitShoot : BaseUnitAction
         return validGridPositionList;
     }
 
-    
+    public Unit GetTargetUnit()
+    {
+        return targetUnit;
+    }
 }

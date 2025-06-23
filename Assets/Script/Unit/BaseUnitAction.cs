@@ -8,6 +8,8 @@ public abstract class BaseUnitAction : MonoBehaviour
     protected Unit unit;
     protected bool isActive = false;
     protected Action OnActionCompeleted;
+    public static Action<BaseUnitAction> OnAnyActionStarted;
+    public static Action<BaseUnitAction> OnAnyActionEnded;
     protected virtual void Awake()
     {
         unit = GetComponent<Unit>();
@@ -50,11 +52,18 @@ public abstract class BaseUnitAction : MonoBehaviour
     {
         isActive = true;
         this.OnActionCompeleted = OnActionCompeleted;
+        OnAnyActionStarted.Invoke(this);
     }
 
     protected  void ActionEnd()
     {
         isActive =false;
         OnActionCompeleted();
+        OnAnyActionEnded.Invoke(this);
+    }
+
+    public Unit GetUnit()
+    {
+        return unit;
     }
 }

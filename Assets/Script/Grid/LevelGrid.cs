@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class LevelGrid : MonoBehaviour
 
     static private LevelGrid instance;
     private GridSysterm gridSysterm;
-
+    public Action OnUnitGridPositionSwitched;
     public static LevelGrid Instance()
     {
         return instance;
@@ -47,6 +48,7 @@ public class LevelGrid : MonoBehaviour
     {
         ClearUnitAtGridPosition(from);
         SetUnitAtGridPosition(unit, to);
+        OnUnitGridPositionSwitched.Invoke();
 
     }
     public GridPosition  GetGridPosition(Vector3 worldPosition)

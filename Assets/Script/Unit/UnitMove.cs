@@ -46,8 +46,9 @@ public class UnitMove : BaseUnitAction
 
     public override void TakeAcion(Vector3 targetPosition, Action OnActionCompeleted)
     {
-        ActionStart(OnActionCompeleted);
+        
         this.targetPosition = targetPosition;
+        ActionStart(OnActionCompeleted);
     }
 
     private  void StopMove()

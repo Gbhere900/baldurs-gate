@@ -7,6 +7,17 @@ public class GridSystermVisual : MonoBehaviour
     [SerializeField] private GridSystermVisualSingle gridSystermVisualSinglePrefabs;
     GridSystermVisualSingle[,] gridSystermVisualSingleArray;
 
+    private void OnEnable()
+    {
+        UnitActionManager.Instance().OnSelectedUnitActionChanged += UnitActionManager_OnSelectedUnitActionChanged;
+        LevelGrid.Instance().OnUnitGridPositionSwitched += LevelGrid_OnUnitGridPositionSwitched;
+    }
+
+    private void OnDisable()
+    {
+        UnitActionManager.Instance().OnSelectedUnitActionChanged -= UnitActionManager_OnSelectedUnitActionChanged;
+        LevelGrid.Instance().OnUnitGridPositionSwitched -= LevelGrid_OnUnitGridPositionSwitched;
+    }
     private void Start()
     {
         gridSystermVisualSingleArray = new GridSystermVisualSingle[LevelGrid.Instance().GetGridWidth(), LevelGrid.Instance().GetGridLenth()];
@@ -49,4 +60,13 @@ public class GridSystermVisual : MonoBehaviour
         }
     }
 
+    private void UnitActionManager_OnSelectedUnitActionChanged()
+    {
+        UpdateVisual();
+    }
+
+    private void LevelGrid_OnUnitGridPositionSwitched()
+    {
+        UpdateVisual();
+    }
 }

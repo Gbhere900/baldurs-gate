@@ -27,6 +27,9 @@ public class Unit : MonoBehaviour
     [Header("ÕóÓª")]
     [SerializeField] private bool isEnemy = false;
 
+    [Header("Ïà»ú")]
+    [SerializeField] private Transform ActionCameraTransform;
+
 
     private void Awake()
     {
@@ -165,5 +168,10 @@ public class Unit : MonoBehaviour
     {
         ragDollSpawner.SpawnRagDoll();
         Destroy(gameObject);
+    }
+
+    public Transform GetActionCameraTransform()
+    {
+        return ActionCameraTransform;
     }
 }

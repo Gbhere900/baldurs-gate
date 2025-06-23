@@ -35,8 +35,9 @@ public class UnitSpin : BaseUnitAction
     }
     public override void TakeAcion(Vector3 targetPosition, Action OnActionCompeleted)
     {
-        ActionStart(OnActionCompeleted);
+        
         rotateAmount = 0;
+        ActionStart(OnActionCompeleted);
     }
 
     public void StopSpin()
