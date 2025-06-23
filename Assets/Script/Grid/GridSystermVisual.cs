@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,22 @@ public class GridSystermVisual : MonoBehaviour
     [SerializeField] private GridSystermVisualSingle gridSystermVisualSinglePrefabs;
     GridSystermVisualSingle[,] gridSystermVisualSingleArray;
 
+    enum GridColor
+    {
+        White,
+        Bule,
+        Yellow,
+        Red,
+        Redsoft
+    }
+    [Serializable]
+    struct GridColorType
+    {
+       public GridColor gridColor;
+        public Material gridMaterial;
+    }
+
+    [SerializeField] private List<GridColorType> gridColorTypeList;
     private void OnEnable()
     {
         UnitActionManager.Instance().OnSelectedUnitActionChanged += UnitActionManager_OnSelectedUnitActionChanged;
@@ -40,8 +57,29 @@ public class GridSystermVisual : MonoBehaviour
     private void UpdateVisual()
     {
         HideAllSingles();
+
+        BaseUnitAction unitAction = UnitActionManager.Instance().GetSelectedUnitAction();
+        GridColor gridColor;
+        switch (unitAction)
+        {
+            case (UnitMove):
+                gridColor = GridColor.White; break;
+            case (UnitSpin):
+                gridColor = GridColor.Yellow; break;
+            case (UnitShoot unitShoot):
+                gridColor = GridColor.Red;
+                List<GridPosition> possibleGridPositions = 
+                    GetPossibleGridPositions(unitShoot.GetMaxActionDistance(), unitShoot.GetUnit().GetGridPosition());
+                ShowValidSingles(possibleGridPositions, GridColor.Redsoft);
+                break;
+            default:
+                gridColor = GridColor.White; break;
+        }
+
+        
         List<GridPosition> validGridPositions = UnitActionManager.Instance().GetSelectedUnitAction().GetValidActionGridPosition();
-        ShowValidSingles(validGridPositions);
+
+        ShowValidSingles(validGridPositions,gridColor);
 
     }
     private void HideAllSingles()
@@ -52,11 +90,12 @@ public class GridSystermVisual : MonoBehaviour
         }
     }
 
-    private void ShowValidSingles(List<GridPosition> validActionGridPosition)
+    private void ShowValidSingles(List<GridPosition> validActionGridPosition,GridColor gridColor)
     {
         foreach(GridPosition gridPosition in validActionGridPosition)
         {
-            gridSystermVisualSingleArray[gridPosition.x,gridPosition.z].Show();
+            Material gridMaterial = GetGridMatetial(gridColor);
+            gridSystermVisualSingleArray[gridPosition.x,gridPosition.z].Show(gridMaterial);
         }
     }
 
@@ -68,5 +107,39 @@ public class GridSystermVisual : MonoBehaviour
     private void LevelGrid_OnUnitGridPositionSwitched()
     {
         UpdateVisual();
+    }
+
+    private Material GetGridMatetial(GridColor gridColor)
+    {
+        foreach(GridColorType gridColorType in gridColorTypeList)
+        {
+            if(gridColor == gridColorType.gridColor)
+            {
+                return gridColorType.gridMaterial;
+            }
+        }
+        Debug.LogError("未找到当前颜色" + gridColor);
+        return null;
+    }
+
+    private List<GridPosition> GetPossibleGridPositions(int distance,GridPosition unitGridPosition)
+    {
+        List<GridPosition> validGridPositionList = new List<GridPosition>();
+        for (int x = -distance; x <= distance ; x++)
+        {
+            for (int z = -distance; z <= distance; z++)
+            {
+                if (Mathf.Abs(x) + Mathf.Abs(z) > distance)
+                    continue;
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+                if (LevelGrid.Instance().IsActionGridPositionValid(testGridPosition))
+                {
+                    validGridPositionList.Add(testGridPosition);
+                }
+
+            }
+        }
+        return validGridPositionList ;
     }
 }
