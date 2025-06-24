@@ -63,7 +63,7 @@ public class UnitActionManager : MonoBehaviour
             return;
         }
         SetIsBusy();
-        selectedUniAction.TakeAcion(LevelGrid.Instance().GetWorldPosition(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())), ClearIsBusy);
+        selectedUniAction.TakeAcion(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition()), ClearIsBusy);
         OnTakeAction.Invoke(this,EventArgs.Empty);
     }
 

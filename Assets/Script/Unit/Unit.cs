@@ -30,6 +30,9 @@ public class Unit : MonoBehaviour
     [Header("Па»ъ")]
     [SerializeField] private Transform ActionCameraTransform;
 
+    public static Action<Unit> OnAnyUnitSpawned;
+    public static Action<Unit> OnAnyUnitDead;
+
 
     private void Awake()
     {
@@ -49,6 +52,7 @@ public class Unit : MonoBehaviour
         health.OnDead += Health_OnDead;
 
         UpdateSelectedVisual(this,EventArgs.Empty);
+        OnAnyUnitSpawned.Invoke(this);
     }
 
     private void OnDisable()
@@ -167,6 +171,7 @@ public class Unit : MonoBehaviour
     private void Health_OnDead()
     {
         ragDollSpawner.SpawnRagDoll();
+        OnAnyUnitDead.Invoke(this);
         Destroy(gameObject);
     }
 

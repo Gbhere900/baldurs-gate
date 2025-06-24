@@ -86,8 +86,10 @@
     <Compile Include="Assets\Script\Unit\UnitAnimator.cs" />
     <Compile Include="Assets\Script\ActionPoint.cs" />
     <Compile Include="Assets\Script\Grid\GridPosition.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemyAI.cs" />
     <Compile Include="Assets\Script\Grid\GridSysterm.cs" />
     <Compile Include="Assets\Script\Unit\BaseUnitAction.cs" />
+    <Compile Include="Assets\Script\UnitManager.cs" />
     <Compile Include="Assets\Script\Grid\Test.cs" />
     <Compile Include="Assets\Script\RagDoll.cs" />
     <Compile Include="Assets\Script\Grid\LevelGrid.cs" />

@@ -35,4 +35,12 @@ public class TurnSysterm : MonoBehaviour
     {
         return IsEnemyTurn;
     }
+
+    public void NextTurnButton_OnClick()
+    {
+        if (IsEnemyTurn)
+            return;
+        else
+            NextTurn();
+    }
 }

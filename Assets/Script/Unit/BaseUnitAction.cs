@@ -17,7 +17,7 @@ public abstract class BaseUnitAction : MonoBehaviour
 
     public abstract String GetUnitAcionName();
 
-    public abstract void TakeAcion(Vector3 targetPosition, Action OnActionCompeleted);
+    public abstract void TakeAcion(GridPosition targetGrifPosition, Action OnActionCompeleted);
 
     public  virtual bool IsGriddPositionvalid(GridPosition gridPosition)
     {

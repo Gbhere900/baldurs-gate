@@ -79,7 +79,7 @@ public class UnitShoot : BaseUnitAction
 
 
     }
-    public override void TakeAcion(Vector3 targetPosition, Action OnActionCompeleted)
+    public override void TakeAcion(GridPosition targetGridPosition, Action OnActionCompeleted)
     {
         //状态机初始化设置
         shootState = ShootState.aim;
@@ -87,7 +87,7 @@ public class UnitShoot : BaseUnitAction
         shootStateTimer = aimTime;
         Debug.Log("aim");
 
-        targetUnit = LevelGrid.Instance().GetUnitAtGridPosition(LevelGrid.Instance().GetGridPosition(targetPosition));
+        targetUnit = LevelGrid.Instance().GetUnitAtGridPosition(targetGridPosition);
         ActionStart(OnActionCompeleted);
 
     }

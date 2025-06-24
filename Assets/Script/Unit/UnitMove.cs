@@ -44,10 +44,10 @@ public class UnitMove : BaseUnitAction
         }
     }
 
-    public override void TakeAcion(Vector3 targetPosition, Action OnActionCompeleted)
+    public override void TakeAcion(GridPosition targetGridPosition, Action OnActionCompeleted)
     {
         
-        this.targetPosition = targetPosition;
+        this.targetPosition = LevelGrid.Instance().GetWorldPosition(targetGridPosition);
         ActionStart(OnActionCompeleted);
     }
 
