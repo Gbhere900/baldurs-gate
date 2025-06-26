@@ -28,14 +28,15 @@ public class CameraManager : MonoBehaviour
         switch (unitAction)
         {
             case UnitShoot unitShoot:
-                //计算方向
-                Vector3 forward = unitShoot.GetTargetUnit().transform.position.normalized;
                 
+             
                 //设置位置
                 Vector3 unitPosition = unitAction.GetUnit().transform.position;
+                //计算方向
+                Vector3 forward = (unitShoot.GetTargetUnit().transform.position - unitPosition).normalized;
                 Vector3 heightOffset = Vector3.up * 1.7f;
                 float shoulderOffsetValue = 1f ;
-                Vector3 shoulderOffser = Vector3.Cross( Vector3.up, forward) * shoulderOffsetValue - forward * 1;
+                Vector3 shoulderOffser = Vector3.Cross( Vector3.up, forward) * shoulderOffsetValue - forward * 2;
                 Vector3 position = unitPosition + heightOffset + shoulderOffser;
                 actionCamera.transform.position = position;
 

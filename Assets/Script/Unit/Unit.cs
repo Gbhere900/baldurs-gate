@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     private Health health;
     private UnitMove unitMove;
     private UnitSpin unitSpin;
+    private UnitShoot unitShoot;
     private RagDollSpawner ragDollSpawner;
     private BaseUnitAction[] baseUnitActionArray;
     [SerializeField] private Transform hitPoint;
@@ -39,6 +40,7 @@ public class Unit : MonoBehaviour
         unitMove = GetComponent<UnitMove>();
         unitSpin = GetComponent<UnitSpin>();
         health = GetComponent<Health>();
+        unitShoot = GetComponent<UnitShoot>();
         ragDollSpawner = GetComponent<RagDollSpawner>();
         baseUnitActionArray = GetComponents<BaseUnitAction>();
         LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
@@ -178,5 +180,10 @@ public class Unit : MonoBehaviour
     public Transform GetActionCameraTransform()
     {
         return ActionCameraTransform;
+    }
+
+    public UnitShoot GetUnitShoot()
+    {
+        return unitShoot;
     }
 }

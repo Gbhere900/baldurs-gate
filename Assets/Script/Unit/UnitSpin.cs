@@ -67,4 +67,14 @@ public class UnitSpin : BaseUnitAction
     {
         return 0;
     }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = 0,
+        };
+
+    }
 }

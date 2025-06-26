@@ -94,7 +94,11 @@ public class UnitShoot : BaseUnitAction
 
     public override List<GridPosition> GetValidActionGridPosition()
     {
-        GridPosition unitGridPosition = unit.GetGridPosition();
+        return GetValidActionGridPosition(unit.GetGridPosition());
+    }
+    public List<GridPosition> GetValidActionGridPosition(GridPosition gridPosition)
+    {
+        
         List<GridPosition> validGridPositionList = new List<GridPosition>();
         for (int x = -GetMaxActionDistance(); x <= GetMaxActionDistance(); x++)
         {
@@ -102,9 +106,11 @@ public class UnitShoot : BaseUnitAction
             {
 
                 GridPosition offsetGridPosition = new GridPosition(x, z);
-                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+                GridPosition testGridPosition = gridPosition + offsetGridPosition;
                 //if  符合数组不越界以及格子上有单位
-                if (LevelGrid.Instance().IsActionGridPositionValid(testGridPosition) && LevelGrid.Instance().IsGridPositionHasUnit(testGridPosition)) 
+                if (LevelGrid.Instance().IsActionGridPositionValid(testGridPosition) && LevelGrid.Instance().IsGridPositionHasUnit(testGridPosition)
+                    &&( !LevelGrid.Instance().GetUnitAtGridPosition(testGridPosition).GetIsEnemy() && unit.GetIsEnemy()
+                    || LevelGrid.Instance().GetUnitAtGridPosition(testGridPosition).GetIsEnemy() && !unit.GetIsEnemy())) 
                 {
                     if (x * x + z * z <=GetMaxActionDistance()* GetMaxActionDistance())
                     validGridPositionList.Add(testGridPosition);
@@ -118,5 +124,21 @@ public class UnitShoot : BaseUnitAction
     public Unit GetTargetUnit()
     {
         return targetUnit;
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = 100,
+        };
+
+    }
+
+    public int GetTargetCountAtPosition(GridPosition gridPosition)
+    {
+        return GetValidActionGridPosition(gridPosition).Count;
     }
 }

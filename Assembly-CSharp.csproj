@@ -69,6 +69,7 @@
     <Compile Include="Assets\Script\Unit\UnitMove.cs" />
     <Compile Include="Assets\Script\UnitActionManager.cs" />
     <Compile Include="Assets\Script\Camera\CameraController.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemyAIAction.cs" />
     <Compile Include="Assets\Script\TurnSysterm.cs" />
     <Compile Include="Assets\Script\Grid\GridSystermVisual.cs" />
     <Compile Include="Assets\Script\UI\TurnSystermUI.cs" />

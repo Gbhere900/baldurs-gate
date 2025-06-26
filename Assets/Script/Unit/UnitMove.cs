@@ -95,4 +95,19 @@ public class UnitMove : BaseUnitAction
         return 3;
     }
 
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        if (unit == null)
+            Debug.LogError("Unit is NUll");
+        if (unit.GetUnitShoot() == null)
+            Debug.LogError("unit.GetUnitShoot() is NUll");
+        int targetCountAtGridPosition = unit.GetUnitShoot().GetTargetCountAtPosition(gridPosition);
+
+        return new EnemyAIAction
+        {
+            gridPosition = gridPosition,
+            actionValue = targetCountAtGridPosition * 10,
+        };
+
+    }
 }
