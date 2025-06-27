@@ -1,25 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridSysterm 
+public class GridSysterm<TGridObject> 
 {
     int lenth = 1;
     int width = 1;
     float cellSize = 1;
-    private GridObject[,] gridObjectArray;
-    public GridSysterm(int lenth,int width,float cellSize)
+    private TGridObject[,] gridObjectArray;
+    public GridSysterm(int lenth, int width, float cellSize, Func<GridSysterm<TGridObject>, GridPosition, TGridObject>createGridObject)
     {
         this.lenth = lenth;
         this.width = width;
         this.cellSize = cellSize;
-        gridObjectArray = new GridObject[width,lenth];
+        gridObjectArray = new TGridObject[width,lenth];
         for (int z = 0; z < width; z++) 
         {
             for (int x = 0; x < lenth; x++)
             {
-                GridObject gridObject  = new GridObject(this,new GridPosition(x,z));
-                gridObjectArray[x,z] = gridObject;
+                //TGridObject gridObject  = new TGridObject(this,new GridPosition(x,z));
+                //gridObjectArray[x,z] = gridObject;
+                gridObjectArray[x,z] = createGridObject(this, new GridPosition(x, z));
             }
         }
         
@@ -49,7 +51,7 @@ public class GridSysterm
         }
     }
 
-    public GridObject GetGridObject(GridPosition gridPosition)
+    public TGridObject GetGridObject(GridPosition gridPosition)
     {
         return gridObjectArray[gridPosition.x, gridPosition.z];
     }
@@ -69,7 +71,8 @@ public class GridSysterm
 
     public bool IsGridPositionHasUnit(GridPosition gridPosition)
     {
-        if (GetGridObject(gridPosition).unit == null)
+        GridObject gridObject = GetGridObject(gridPosition) as GridObject;
+        if (gridObject.unit == null)
             return false;
         else
             return true;

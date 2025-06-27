@@ -12,7 +12,7 @@ public class LevelGrid : MonoBehaviour
     [SerializeField] private int cellSize = 2;
 
     static private LevelGrid instance;
-    private GridSysterm gridSysterm;
+    private GridSysterm<GridObject> gridSysterm;
     public Action OnUnitGridPositionSwitched;
     public static LevelGrid Instance()
     {
@@ -22,8 +22,9 @@ public class LevelGrid : MonoBehaviour
     {
         
         instance = this;
-        gridSysterm = new GridSysterm(lenth, width, cellSize);
-        gridSysterm.CreateDebugObjects(gridDebugObject);
+        gridSysterm = new GridSysterm<GridObject>(lenth, width, cellSize,
+            (GridSysterm<GridObject> g,GridPosition gridPosition) =>new GridObject(g,gridPosition));
+       // gridSysterm.CreateDebugObjects(gridDebugObject);
     }
 
     public void SetUnitAtGridPosition(Unit unit,GridPosition  gridPosition)

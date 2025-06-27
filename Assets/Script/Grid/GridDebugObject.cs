@@ -7,21 +7,21 @@ public class GridDebugObject : MonoBehaviour
 {
     [SerializeField] private TextMeshPro textMeshPro;
     private GridObject gridObject;
-    public void SetGridObject(GridObject gridObject)
+    public virtual void SetGridObject(object gridObject)
     {
-        this.gridObject = gridObject;
+        this.gridObject = (GridObject)gridObject;
         
     }
     private void Update()
     {
-        textMeshPro.text = gridObject.ToString();
+        UpdateText();
     }
     public override string ToString()
     {
         return gridObject.ToString();
     }
 
-    public void UpdateText()
+    protected virtual void UpdateText()
     {
         textMeshPro.text = gridObject.ToString();
     }

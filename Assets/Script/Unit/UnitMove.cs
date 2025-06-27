@@ -99,9 +99,9 @@ public class UnitMove : BaseUnitAction
     {
         if (unit == null)
             Debug.LogError("Unit is NUll");
-        if (unit.GetUnitShoot() == null)
+        if (unit.GetUnitAction<UnitShoot>() == null)
             Debug.LogError("unit.GetUnitShoot() is NUll");
-        int targetCountAtGridPosition = unit.GetUnitShoot().GetTargetCountAtPosition(gridPosition);
+        int targetCountAtGridPosition = unit.GetUnitAction<UnitShoot>().GetTargetCountAtPosition(gridPosition);
 
         return new EnemyAIAction
         {

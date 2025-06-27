@@ -107,10 +107,12 @@ public class UnitShoot : BaseUnitAction
 
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = gridPosition + offsetGridPosition;
-                //if  符合数组不越界以及格子上有单位
-                if (LevelGrid.Instance().IsActionGridPositionValid(testGridPosition) && LevelGrid.Instance().IsGridPositionHasUnit(testGridPosition)
-                    &&( !LevelGrid.Instance().GetUnitAtGridPosition(testGridPosition).GetIsEnemy() && unit.GetIsEnemy()
-                    || LevelGrid.Instance().GetUnitAtGridPosition(testGridPosition).GetIsEnemy() && !unit.GetIsEnemy())) 
+                if (!(LevelGrid.Instance().IsActionGridPositionValid(testGridPosition)&&LevelGrid.Instance().IsGridPositionHasUnit(testGridPosition)))
+                    continue;
+                Unit testUnit = LevelGrid.Instance().GetUnitAtGridPosition(testGridPosition);
+                //if  符合数组不越界以及格子上有敌对单位
+                if (( !testUnit.GetIsEnemy() && unit.GetIsEnemy()
+                    || testUnit.GetIsEnemy() && !unit.GetIsEnemy())) 
                 {
                     if (x * x + z * z <=GetMaxActionDistance()* GetMaxActionDistance())
                     validGridPositionList.Add(testGridPosition);

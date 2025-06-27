@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GridObject 
 {
-    private GridSysterm gridSysterm;
+    private GridSysterm<GridObject> gridSysterm;
     private GridPosition gridPosition;
     public Unit unit { get; set; }
-    public GridObject(GridSysterm gridSysterm,GridPosition gridPosition)
+    public GridObject(GridSysterm<GridObject> gridSysterm,GridPosition gridPosition)
     {
         this.gridSysterm = gridSysterm;
         this.gridPosition = gridPosition;
@@ -17,4 +17,5 @@ public class GridObject
     {
         return gridPosition.ToString() + "\n"+ unit;
     }
+
 }

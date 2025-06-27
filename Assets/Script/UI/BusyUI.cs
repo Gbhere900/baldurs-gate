@@ -23,7 +23,6 @@ public class BusyUI : MonoBehaviour
     }
     private void  ChangeBusyUIVisibility(object sender, bool isBusy)
     {
-        Debug.Log("isBusy = " +isBusy);
         image.gameObject.SetActive(isBusy);
     }
 }

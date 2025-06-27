@@ -37,14 +37,22 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
-        unitMove = GetComponent<UnitMove>();
-        unitSpin = GetComponent<UnitSpin>();
         health = GetComponent<Health>();
-        unitShoot = GetComponent<UnitShoot>();
         ragDollSpawner = GetComponent<RagDollSpawner>();
         baseUnitActionArray = GetComponents<BaseUnitAction>();
         LevelGrid.Instance().SetUnitAtGridPosition(this,LevelGrid.Instance().GetGridPosition(transform.position));
         ReSetAtionPoint();
+    }
+
+    public T GetUnitAction<T>() where T : BaseUnitAction
+    {
+        foreach(BaseUnitAction baseUnitAction in baseUnitActionArray)
+        {
+            if (baseUnitAction is T)
+                return (T)baseUnitAction;
+        }
+            Debug.LogWarning("无法在目标Unit找到该类型BaseAction");
+            return null;
     }
 
     private void OnEnable()
@@ -90,7 +98,6 @@ public class Unit : MonoBehaviour
 
     private void UpdateSelectedVisual(object sender,EventArgs empty)
     {
-        Debug.Log("changed");
         if(UnitActionManager.Instance().GetSelectedUnit() == this)
             EnableSelectedVisual();
         else
@@ -99,14 +106,6 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public UnitMove GetUnitMove()
-    {
-        return unitMove;
-    }
-    public UnitSpin GetUnitSpin()
-    {
-        return unitSpin;
-    }
 
     public BaseUnitAction[] GetBaseUnitActionArray()
     {
@@ -182,8 +181,4 @@ public class Unit : MonoBehaviour
         return ActionCameraTransform;
     }
 
-    public UnitShoot GetUnitShoot()
-    {
-        return unitShoot;
-    }
 }
