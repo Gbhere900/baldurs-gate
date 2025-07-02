@@ -61,6 +61,7 @@ public class UnitShoot : BaseUnitAction
                     shootState = ShootState.shoot;
                     OnStartShootAnimation.Invoke(targetUnit);
                     targetUnit.GetComponent<Health>().TakeDamage(damage);
+                    CameraShake.Instance().Shake();
                     Debug.Log("shoot");
                     break;
 

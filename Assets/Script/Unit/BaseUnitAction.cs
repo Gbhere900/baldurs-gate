@@ -19,7 +19,7 @@ public abstract class BaseUnitAction : MonoBehaviour
 
     public abstract void TakeAcion(GridPosition targetGrifPosition, Action OnActionCompeleted);
 
-    public  virtual bool IsGriddPositionvalid(GridPosition gridPosition)
+    public  bool IsGriddPositionvalid(GridPosition gridPosition)
     {
         return GetValidActionGridPosition().Contains(gridPosition);
     }

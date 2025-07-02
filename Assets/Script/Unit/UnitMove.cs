@@ -118,10 +118,6 @@ public class UnitMove : BaseUnitAction
 
     public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        if (unit == null)
-            Debug.LogError("Unit is NUll");
-        if (unit.GetUnitAction<UnitShoot>() == null)
-            Debug.LogError("unit.GetUnitShoot() is NUll");
         int targetCountAtGridPosition = unit.GetUnitAction<UnitShoot>().GetTargetCountAtPosition(gridPosition);
 
         return new EnemyAIAction
