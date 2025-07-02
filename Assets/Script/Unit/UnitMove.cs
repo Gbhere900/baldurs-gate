@@ -6,7 +6,9 @@ using UnityEngine;
 public class UnitMove : BaseUnitAction
 {
     [Header("walk")]
-    [SerializeField] private Vector3 targetPosition;
+    [SerializeField] private List<GridPosition> targetGridPositionList;
+    private int targetPositionIndex = 0;
+
     [SerializeField] private float stopDistance = 0.1f;
     [SerializeField] private float speed = 1;
 
@@ -22,13 +24,14 @@ public class UnitMove : BaseUnitAction
     protected override void Awake()
     {
         base.Awake();
-        targetPosition = transform.position;
+        targetGridPositionList = new List<GridPosition>();
 
     }
     private void Update()
     {
         if (!isActive)
             return;
+        Vector3 targetPosition = LevelGrid.Instance().GetWorldPosition(targetGridPositionList[targetPositionIndex]);
 
         if (Vector3.Distance(transform.position, targetPosition) > stopDistance)
         {
@@ -40,14 +43,22 @@ public class UnitMove : BaseUnitAction
         }
         else
         {
-            StopMove();
+            targetPositionIndex++;
+            if (targetPositionIndex >= targetGridPositionList.Count)
+            {
+                StopMove();
+            }
+           
         }
     }
 
     public override void TakeAcion(GridPosition targetGridPosition, Action OnActionCompeleted)
     {
-        
-        this.targetPosition = LevelGrid.Instance().GetWorldPosition(targetGridPosition);
+        targetPositionIndex = 0;    
+        targetGridPositionList.Clear();
+        targetGridPositionList = PathFinding.Instance().
+        GetShortestPath(unit.GetGridPosition(),targetGridPosition);
+
         ActionStart(OnActionCompeleted);
     }
 
@@ -70,10 +81,20 @@ public class UnitMove : BaseUnitAction
                 GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
 
                 //if 符合数组不越界以及格子上有单位
-                if (LevelGrid.Instance().IsActionGridPositionValid(testGridPosition) && !LevelGrid.Instance().IsGridPositionHasUnit(testGridPosition))
+                if (!LevelGrid.Instance().IsActionGridPositionValid(testGridPosition))
                 {
-                    validGridPositionList.Add(testGridPosition);
+                    continue;
+                    
                 }
+                if(LevelGrid.Instance().IsGridPositionHasUnit(testGridPosition))
+                {
+                    continue;
+                }
+                if (!PathFinding.Instance().isGridPositionCanWalk(testGridPosition))
+                {
+                    continue;
+                }
+                validGridPositionList.Add(testGridPosition);
 
             }
         }

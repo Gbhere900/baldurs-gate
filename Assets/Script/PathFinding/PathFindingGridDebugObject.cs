@@ -9,6 +9,8 @@ public class PathFindingGridDebugObject : GridDebugObject
     [SerializeField] private TextMeshPro fText;
     [SerializeField] private TextMeshPro hText;
     [SerializeField] private TextMeshPro gText;
+    [SerializeField] private GameObject isWalkableVisual;
+
 
     private PathFindingGridObject pathFindingGridObject;
     protected override void UpdateText()
@@ -23,6 +25,14 @@ public class PathFindingGridDebugObject : GridDebugObject
     private void Update()
     {
         UpdateText();
+        if (pathFindingGridObject.GetIsWalkable())
+        {
+            isWalkableVisual.SetActive(true);
+
+        }
+        else
+            isWalkableVisual.SetActive(false);
+        
     }
     public override void SetGridObject(object pathFindingGridObject)
     {

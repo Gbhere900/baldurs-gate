@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PathFindingGridObject
 {
+    [SerializeField] private bool isWalkable = true;
     private GridSysterm<PathFindingGridObject> pathFindingGridObject;
     private GridPosition gridPosition;
     private float h;
@@ -70,5 +71,15 @@ public class PathFindingGridObject
     {
 
     return gridPosition; 
+    }
+
+    public bool GetIsWalkable()
+    {
+        return isWalkable;
+    }
+
+    public void SetIsWalkable(bool isWalkable)
+    {
+        this.isWalkable = isWalkable;
     }
 }

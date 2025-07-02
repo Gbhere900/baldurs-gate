@@ -5,14 +5,20 @@ using UnityEngine;
 
 public class LevelGrid : MonoBehaviour
 {
-    [SerializeField] private Transform gridDebugObject;
+    
     [Header("Íø¸ñ´óÐ¡")]
     [SerializeField] private int lenth = 10;
     [SerializeField] private int width = 10;
     [SerializeField] private int cellSize = 2;
 
     static private LevelGrid instance;
+
+    [SerializeField] private Transform gridDebugObject;
     private GridSysterm<GridObject> gridSysterm;
+
+    //[SerializeField] private Transform pathFindingGridDebugObject;
+    //private GridSysterm<PathFindingGridObject> pathFinding;
+
     public Action OnUnitGridPositionSwitched;
     public static LevelGrid Instance()
     {
@@ -24,7 +30,7 @@ public class LevelGrid : MonoBehaviour
         instance = this;
         gridSysterm = new GridSysterm<GridObject>(lenth, width, cellSize,
             (GridSysterm<GridObject> g,GridPosition gridPosition) =>new GridObject(g,gridPosition));
-       // gridSysterm.CreateDebugObjects(gridDebugObject);
+        // gridSysterm.CreateDebugObjects(gridDebugObject);
     }
 
     public void SetUnitAtGridPosition(Unit unit,GridPosition  gridPosition)
