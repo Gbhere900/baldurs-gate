@@ -10,7 +10,6 @@ public class RagDollSpawner : MonoBehaviour
     {
         RagDoll ragdoll =  GameObject.Instantiate(ragDollPrefabs,transform.position,Quaternion.identity,null);
         ragdoll.SetUpClone(ragdoll.GetRoot(),originRoot);
-
     }
 
 }

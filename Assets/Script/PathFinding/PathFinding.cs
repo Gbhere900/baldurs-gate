@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -27,6 +28,21 @@ public class PathFinding : MonoBehaviour
         PathFindingGridSysterm = new GridSysterm<PathFindingGridObject>(length,width,cellSize,
             (GridSysterm<PathFindingGridObject> g,GridPosition gp) =>  new PathFindingGridObject(g,gp));
         PathFindingGridSysterm.CreateDebugObjects(pathFindingGridDebugObject);
+    }
+
+    private void OnEnable()
+    {
+        DestructableCrate.OnAnyDestructableCrateDestructed += DestructableCrate_OnAnyDestructableCrateDestructed;
+    }
+
+    private void DestructableCrate_OnAnyDestructableCrateDestructed(DestructableCrate destructableCrate)
+    {
+        PathFindingGridSysterm.GetGridObject(destructableCrate.GetGridPosition()).SetIsWalkable(true);
+    }
+
+    private void OnDisable()
+    {
+        DestructableCrate.OnAnyDestructableCrateDestructed -= DestructableCrate_OnAnyDestructableCrateDestructed;
     }
 
     PathFinding(Transform gridDebugObject, int length, int width, float cellSize)
