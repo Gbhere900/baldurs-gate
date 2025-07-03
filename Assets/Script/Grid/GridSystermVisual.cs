@@ -11,7 +11,7 @@ public class GridSystermVisual : MonoBehaviour
     enum GridColor
     {
         White,
-        Bule,
+        Blue,
         Yellow,
         Red,
         Redsoft
@@ -65,13 +65,22 @@ public class GridSystermVisual : MonoBehaviour
             case (UnitMove):
                 gridColor = GridColor.White; break;
             case (UnitSpin):
-                gridColor = GridColor.Yellow; break;
+                gridColor = GridColor.White; break;
+            case (UnitGrenade):
+                gridColor = GridColor.Yellow;break;
+            case (UnitInteract):
+                gridColor = GridColor.White; break;
             case (UnitShoot unitShoot):
                 gridColor = GridColor.Red;
-                List<GridPosition> possibleGridPositions = 
+                List<GridPosition> possibleShootGridPositions = 
                     GetPossibleGridPositions(unitShoot.GetMaxActionDistance(), unitShoot.GetUnit().GetGridPosition());
-                ShowValidSingles(possibleGridPositions, GridColor.Redsoft);
+                ShowValidSingles(possibleShootGridPositions, GridColor.Redsoft);
                 break;
+            case (UnitSlash unitSlash):
+                List<GridPosition> possibleSlashGridPositions =
+                    GetPossibleGridPositions(unitSlash.GetMaxActionDistance(), unitSlash.GetUnit().GetGridPosition());
+                ShowValidSingles(possibleSlashGridPositions, GridColor.Redsoft);
+                gridColor = GridColor.Red; break;
             default:
                 gridColor = GridColor.White; break;
         }

@@ -108,7 +108,8 @@ public class UnitShoot : BaseUnitAction
 
                 GridPosition offsetGridPosition = new GridPosition(x, z);
                 GridPosition testGridPosition = gridPosition + offsetGridPosition;
-                if (!(LevelGrid.Instance().IsActionGridPositionValid(testGridPosition)&&LevelGrid.Instance().IsGridPositionHasUnit(testGridPosition)))
+                if (!(LevelGrid.Instance().IsActionGridPositionValid(testGridPosition) &&
+                    LevelGrid.Instance().IsGridPositionHasUnit(testGridPosition)))
                     continue;
                 Unit testUnit = LevelGrid.Instance().GetUnitAtGridPosition(testGridPosition);
                 //if  符合数组不越界以及格子上有敌对单位

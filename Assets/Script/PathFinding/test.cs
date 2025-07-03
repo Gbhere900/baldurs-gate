@@ -11,16 +11,16 @@ public class test : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (!LevelGrid.Instance().IsActionGridPositionValid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
-                return;
-            foreach (GridPosition gridposition in PathFinding.Instance().GetShortestPath(new GridPosition(0, 0),
-                LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
-            {
-                Gizmos.DrawCube(LevelGrid.Instance().GetWorldPosition(gridposition), new Vector3(0.3f, 0.3f, 0.3f));
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    if (!LevelGrid.Instance().IsActionGridPositionValid(LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
+        //        return;
+        //    foreach (GridPosition gridposition in PathFinding.Instance().GetShortestPath(new GridPosition(0, 0),
+        //        LevelGrid.Instance().GetGridPosition(MousePositionManager.GetMousePosition())))
+        //    {
+        //        Gizmos.DrawCube(LevelGrid.Instance().GetWorldPosition(gridposition), new Vector3(0.3f, 0.3f, 0.3f));
+        //    }
+        //}
 
     }
 }

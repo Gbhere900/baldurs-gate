@@ -90,7 +90,7 @@ public class UnitMove : BaseUnitAction
                 {
                     continue;
                 }
-                if (!PathFinding.Instance().isGridPositionCanWalk(testGridPosition))
+                if (!PathFinding.Instance().GetIsGridPositionCanWalk(testGridPosition))
                 {
                     continue;
                 }

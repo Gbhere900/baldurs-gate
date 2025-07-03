@@ -68,7 +68,6 @@ public class GridSysterm<TGridObject>
        
         
     }
-
     public bool IsGridPositionHasUnit(GridPosition gridPosition)
     {
         GridObject gridObject = GetGridObject(gridPosition) as GridObject;
@@ -76,5 +75,11 @@ public class GridSysterm<TGridObject>
             return false;
         else
             return true;
+    }
+
+    public Door GetDoor(GridPosition gridPosition)
+    {
+        GridObject gridObject = GetGridObject(gridPosition) as GridObject;
+        return gridObject.door;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class UnitAnimator : MonoBehaviour
     [SerializeField] private Animator animator;
     private UnitMove unitMove;
     private UnitShoot unitShoot;
+    private UnitSlash unitSlash;
     [SerializeField] private GameObject BulletEffect;
     [SerializeField] private Transform BulletSpawnPoint;
                         
@@ -23,7 +25,16 @@ public class UnitAnimator : MonoBehaviour
             unitShoot.OnStartShootAnimation += UnitShoot_OnStartShootAnimation;
         }
 
+        if(TryGetComponent<UnitSlash>(out unitSlash))
+        {
+            unitSlash.OnStartSlashAnimation += UnitSlash_OnStartSlashAction;
+        }
 
+    }
+
+    private void UnitSlash_OnStartSlashAction()
+    {
+        animator.SetTrigger("slash");
     }
 
     private void OnDisable()
