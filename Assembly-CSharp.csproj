@@ -68,12 +68,14 @@
     <Compile Include="Assets\Script\Grenade.cs" />
     <Compile Include="Assets\Script\UI\UnitActionUISysterm.cs" />
     <Compile Include="Assets\Script\MousePositionManager.cs" />
+    <Compile Include="Assets\Script\Interactable.cs" />
     <Compile Include="Assets\Script\Grid\GridObject.cs" />
     <Compile Include="Assets\Script\PathFinding\PathFindingGridObject.cs" />
     <Compile Include="Assets\Script\Unit\UnitMove.cs" />
     <Compile Include="Assets\Script\UnitActionManager.cs" />
     <Compile Include="Assets\Script\Camera\CameraController.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyAIAction.cs" />
+    <Compile Include="Assets\Script\InteractableBall.cs" />
     <Compile Include="Assets\Script\TurnSysterm.cs" />
     <Compile Include="Assets\Script\Grid\GridSystermVisual.cs" />
     <Compile Include="Assets\Script\UI\TurnSystermUI.cs" />

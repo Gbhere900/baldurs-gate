@@ -77,9 +77,15 @@ public class GridSysterm<TGridObject>
             return true;
     }
 
-    public Door GetDoor(GridPosition gridPosition)
+    public Interactable GetInteractable(GridPosition gridPosition)
     {
         GridObject gridObject = GetGridObject(gridPosition) as GridObject;
-        return gridObject.door;
+        return gridObject.interactable;
+    }
+
+    public void SetInteractable(Interactable interactable, GridPosition gridPosition)
+    {
+        GridObject gridObject = GetGridObject(gridPosition) as GridObject;
+        gridObject.interactable = interactable;
     }
 }
