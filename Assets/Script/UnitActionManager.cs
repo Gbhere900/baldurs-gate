@@ -42,7 +42,7 @@ public class UnitActionManager : MonoBehaviour
         {
             return;
         }
-        if (Input.GetMouseButtonDown(0))
+        if (InputManager.Instance().GetMouseButtonDown(0))
         {
             if (HandleUnitSelection())
             {
@@ -70,7 +70,7 @@ public class UnitActionManager : MonoBehaviour
 
     public bool HandleUnitSelection()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(InputManager.Instance().GetMousePosition());
         if(Physics.Raycast(ray, out RaycastHit rayCastHit, float.MaxValue, mask))
         {
             if (!rayCastHit.transform.gameObject.GetComponent<Unit>().GetIsEnemy())
